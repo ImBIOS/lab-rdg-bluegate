@@ -10,15 +10,15 @@ A comprehensive reproducible laboratory environment for **CVE-2020-0610** (BlueG
 
 **CVE-2020-0610** is a critical RCE vulnerability in Windows RD Gateway that allows unauthenticated attackers to execute arbitrary code by sending specially crafted UDP packets to port 3391. The vulnerability affects:
 
-- Windows Server 2012 / 2012 R2 
+- Windows Server 2012 / 2012 R2
 - Windows Server 2016
 - Windows Server 2019
 - Any system with RD Gateway role and UDP transport enabled
 
-**CVSS Score:** 9.8 (Critical)  
-**Attack Vector:** Network (UDP/3391)  
-**Authentication:** None required  
-**Impact:** Complete system compromise  
+**CVSS Score:** 9.8 (Critical)
+**Attack Vector:** Network (UDP/3391)
+**Authentication:** None required
+**Impact:** Complete system compromise
 
 ## 🔬 Lab Scope & Safety
 
@@ -31,12 +31,14 @@ A comprehensive reproducible laboratory environment for **CVE-2020-0610** (BlueG
 ## 📋 Requirements
 
 ### Infrastructure
+
 - **Hypervisor:** Hyper-V / VMware Workstation / VirtualBox
 - **Target OS:** Windows Server (2012/2012 R2/2016/2019) - unpatched
 - **Network:** Isolated lab network
 - **Resources:** 2GB RAM minimum, 40GB disk space
 
 ### Tools
+
 - PowerShell (Admin privileges required)
 - [Nuclei Scanner](https://github.com/projectdiscovery/nuclei) v3.4.10+
 - Network connectivity testing tools (optional)
@@ -44,31 +46,36 @@ A comprehensive reproducible laboratory environment for **CVE-2020-0610** (BlueG
 ## 🚀 Quick Setup Guide
 
 ### 1. Install RD Gateway Role
+
 ```powershell
 # Via Server Manager GUI
 Server Manager → Add Roles and Features → Remote Desktop Services → RD Gateway
 ```
 
 ### 2. Enable UDP Transport
+
 ```powershell
 # Via RD Gateway Manager
-RD Gateway Manager → <ServerName> → Properties → Transport Settings 
+RD Gateway Manager → <ServerName> → Properties → Transport Settings
 → Check "Allow users to connect by using UDP" → OK
 ```
 
 ### 3. Configure Firewall (UDP/3391)
+
 ```powershell
 # Run as Administrator
 powershell -ExecutionPolicy Bypass -File .\scripts\add-udp-3391-firewall.ps1
 ```
 
 ### 4. System Validation
+
 ```powershell
 # Verify RD Gateway and firewall configuration
 powershell -ExecutionPolicy Bypass -File .\scripts\sanity-check.ps1
 ```
 
 ### 5. Vulnerability Testing
+
 ```bash
 # Using Nuclei scanner
 nuclei -t network/cves/2020/CVE-2020-0610.yaml \
@@ -81,12 +88,14 @@ nuclei -t network/cves/2020/CVE-2020-0610.yaml \
 ## 🔍 Expected Results
 
 ### Vulnerable System
+
 ```
 DEBUG_HEX:
 NUCLEI_RESULT:VULNERABLE
 ```
 
-### Patched System  
+### Patched System
+
 ```
 DEBUG_HEX: 160303...ffff0080
 NUCLEI_RESULT:NOT_VULNERABLE
@@ -118,15 +127,18 @@ lab-rdg-bluegate/
 ## 🔗 Related Resources
 
 ### Official Documentation
+
 - [Microsoft Security Advisory](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2020-0610)
 - [NVD Entry - CVE-2020-0610](https://nvd.nist.gov/vuln/detail/CVE-2020-0610)
 
-### Research & Analysis  
+### Research & Analysis
+
 - [Kryptos Logic - RDP to RCE Analysis](https://www.kryptoslogic.com/blog/2020/01/rdp-to-rce-when-fragmentation-goes-wrong/)
 - [BlueGate PoC Repository](https://gitlab.com/ind3p3nd3nt/BlueGate)
 - [VulnCheck Database Entry](https://vulncheck.com/xdb/3a3f10478ff3)
 
 ### Security Tools
+
 - [Nuclei Scanner](https://github.com/projectdiscovery/nuclei)
 - [ProjectDiscovery Templates](https://github.com/projectdiscovery/nuclei-templates)
 
@@ -135,7 +147,7 @@ lab-rdg-bluegate/
 This lab was created to support the security research community. Contributions are welcome:
 
 - Improve setup scripts
-- Add additional test cases  
+- Add additional test cases
 - Enhance documentation
 - Report issues or bugs
 
@@ -144,7 +156,7 @@ This lab was created to support the security research community. Contributions a
 This laboratory environment is provided for **educational and authorized security testing purposes only**. Users are responsible for:
 
 - Obtaining proper authorization before testing
-- Complying with applicable laws and regulations  
+- Complying with applicable laws and regulations
 - Using the lab ethically and responsibly
 - Not targeting systems without explicit permission
 
