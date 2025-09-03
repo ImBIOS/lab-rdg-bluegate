@@ -1,5 +1,7 @@
 # CVE-2020-0610 BlueGate Lab - Windows RD Gateway UDP/DTLS RCE
 
+Nuclei PR: https://github.com/projectdiscovery/nuclei-templates/pull/13076
+
 [![CVE-2020-0610](https://img.shields.io/badge/CVE--2020--0610-Critical-red)](https://nvd.nist.gov/vuln/detail/CVE-2020-0610)
 [![BlueGate](https://img.shields.io/badge/BlueGate-PoC-orange)](https://gitlab.com/ind3p3nd3nt/BlueGate)
 [![Nuclei Template](https://img.shields.io/badge/Nuclei-Template-blue)](https://github.com/projectdiscovery/nuclei-templates)
